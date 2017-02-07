@@ -4,7 +4,8 @@
                  [re-frame "0.9.1"]
                  [org.clojure/clojurescript "1.9.456" :scope "provided"]
                  [reagent "0.6.0"]]
-  :plugins [[lein-cljsbuild "1.1.5"]]
+  :plugins [[lein-cljsbuild "1.1.5"]
+            [lein-figwheel "0.5.9"]]
   :clean-targets ^{:protect false}
     [:target-path
      [:cljsbuild :builds :app :compiler :output-dir]
@@ -17,4 +18,10 @@
                                         :main "rfstart.core"
                                         :asset-path "js/out"
                                         :optimizations :none
-                                        :pretty-print true}}}})
+                                        :pretty-print true}}}}
+  :profiles {:dev {:cljsbuild {:builds {:app {:figwheel true}}}}
+             :uberjar {:cljsbuild {:jar true
+                                   :builds {:app
+                                            {:compiler
+                                             {:optimizations :advanced
+                                              :pretty-print false}}}}}})
